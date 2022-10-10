@@ -4,6 +4,9 @@
 #define SIZE 100
 
 int readvars(FILE* input_file, char** symbols, unsigned int** values);
+void display_symbols(int, char*);
+void display_values(int varnum, unsigned int* values); 
+
 int main(int argc, char** argv) 
 { 
     if (argc != 2) { 
@@ -20,6 +23,10 @@ int main(int argc, char** argv)
         printf("%c has value %d\n", symbols[i], values[i]);
     }
     fclose(input_file);
+
+    printf("%d\n", varnum);
+    display_symbols(varnum, symbols);
+    display_values(varnum, values);
     return 0;
 }
 
@@ -31,7 +38,7 @@ int readvars(FILE* input_file, char** symbols, unsigned int** values) {
     char* loc_symbols = calloc(varnum, sizeof(char));
     unsigned int* loc_values = calloc(varnum, sizeof(unsigned int));
     for (int i = 0; i < varnum; i++) {
-        fscanf(input_file, " %c ", &loc_symbols[i]);
+        fscanf(input_file, "%c ", &loc_symbols[i]);
         loc_values[i] = 0;
     }
 
@@ -39,5 +46,28 @@ int readvars(FILE* input_file, char** symbols, unsigned int** values) {
     *values = loc_values;
     return varnum;
 }
+
+void display_symbols(int varnum, char* symbols) {
+    printf("|");
+    for (int i = 0; i < varnum; i++) {
+        printf(" %c ", symbols[i]);
+    }
+    printf("|\n");
+}
+
+void display_values(int varnum, unsigned int* values) {
+    printf("|");
+    for (int i = 0; i < varnum; i++) {
+        printf(" %d ", values[i]);
+    }
+    printf("|\n");
+}
+
+void display(int varnum, char** symbols, unsigned int** values) {
+    int max = pow(2, varnum);
+
+}
+
+
 
 
