@@ -8,7 +8,6 @@ TARGET = ttable
 
 $(TARGET) : $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-	mv $(TARGET) ../build/	
 
 .PHONY : clean
 
