@@ -1,0 +1,16 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+LDFLAGS = 
+
+SOURCES = main.c
+OBJECTS = $(SOURCES:.c=.o)
+TARGET = ttable
+
+$(TARGET) : $(OBJECTS)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	mv $(TARGET) ../build/	
+
+.PHONY : clean
+
+clean:
+	rm -rf $(TARGET) $(OBJECTS) core
