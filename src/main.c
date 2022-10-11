@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 100
-
 int readvars(FILE* input_file, char** symbols, unsigned int** values);
 void display_symbols(int, char*);
-void display_values(int varnum, unsigned int* values); 
-void recur(int index, int varnum, unsigned int* values); 
+void display_values(int varnum, int resnum, unsigned int* values); 
+void recur(int index, int varnum, int resnum, unsigned int* values); 
+void boolean_or(int varnum, int resnum, unsigned int* values); 
 
 
 void inc(unsigned int* val); 
@@ -23,17 +22,12 @@ int main(int argc, char** argv)
     char* symbols;
     unsigned int* values;
     int varnum = readvars(input_file, &symbols, &values);
-    for (int i = 0; i < varnum; i++) {
-        printf("%c has value %d\n", symbols[i], values[i]);
-    }
+    int resnum = 1; //temporary
+                    
     fclose(input_file);
 
-    printf("%d\n", varnum);
     display_symbols(varnum, symbols);
-    //display_values(varnum, values);
-    //inc(values);
-    //display_values(varnum, values);
-    recur(0, varnum, values); 
+    recur(0, varnum, resnum, values); 
     free(symbols);
     free(values);
     return 0;
@@ -49,7 +43,7 @@ int readvars(FILE* input_file, char** symbols, unsigned int** values) {
     fscanf(input_file, "%d\n", &varnum);
 
     char* loc_symbols = calloc(varnum, sizeof(char));
-    unsigned int* loc_values = calloc(varnum, sizeof(unsigned int));
+    unsigned int* loc_values = calloc(varnum + 1, sizeof(unsigned int));
     for (int i = 0; i < varnum; i++) {
         fscanf(input_file, "%c ", &loc_symbols[i]);
         loc_values[i] = 0;
@@ -68,9 +62,13 @@ void display_symbols(int varnum, char* symbols) {
     printf("|\n");
 }
 
-void display_values(int varnum, unsigned int* values) {
+void display_values(int varnum, int resnum, unsigned int* values) {
     printf("|");
     for (int i = 0; i < varnum; i++) {
+        printf(" %d ", values[i]);
+    }
+    printf("|");
+    for (int i = varnum; i < varnum + resnum; i++) {
         printf(" %d ", values[i]);
     }
     printf("|\n");
@@ -80,23 +78,36 @@ void display_values(int varnum, unsigned int* values) {
 //
 //}
 
-void recur(int index, int varnum, unsigned int* values) {
+void recur(int index, int varnum, int resnum, unsigned int* values) {
     if (index == varnum - 1) {
         values[index] = 0;
-        display_values(varnum, values);
+        boolean_or(varnum, resnum, values);
+        display_values(varnum, resnum, values);
         values[index] = 1;
-        display_values(varnum, values);
+        boolean_or(varnum, resnum, values);
+        display_values(varnum, resnum, values);
         return;
     }
     else {
         values[index] = 0;
         //display_values(varnum, *values);
-        recur(index + 1, varnum, values);
+        recur(index + 1, varnum, resnum, values);
         values[index] = 1;
         //display_values(varnum, *values);
-        recur(index + 1, varnum, values);
+        recur(index + 1, varnum, resnum, values);
     }
 }
 
-
+void boolean_or(int varnum, int resnum, unsigned int* values) {
+    //unsigned int res = 0;
+    for (int i = 0; i < varnum; i++) {
+        //res = res + values[i];
+        //if (res == 2) {
+        if (values[i] == 1) {
+            values[varnum + resnum - 1] = 1;
+            return;
+        }
+    }
+    values[varnum + resnum - 1] = 0;
+}
 

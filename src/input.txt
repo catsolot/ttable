@@ -1,3 +1,2 @@
-7
-a a b c x y z
-x OR y
+4
+a x y z
