@@ -6,6 +6,7 @@
 int readvars(FILE* input_file, char** symbols, unsigned int** values);
 void display_symbols(int, char*);
 void display_values(int varnum, unsigned int* values); 
+void recur(int index, int varnum, unsigned int** values); 
 
 int main(int argc, char** argv) 
 { 
@@ -26,7 +27,8 @@ int main(int argc, char** argv)
 
     printf("%d\n", varnum);
     display_symbols(varnum, symbols);
-    display_values(varnum, values);
+    //display_values(varnum, values);
+    recur(0, varnum, &values); 
     return 0;
 }
 
@@ -64,10 +66,27 @@ void display_values(int varnum, unsigned int* values) {
 }
 
 void display(int varnum, char** symbols, unsigned int** values) {
-    int max = pow(2, varnum);
 
 }
 
+void recur(int index, int varnum, unsigned int** values) {
+    if (index == varnum - 1) {
+        
+        *values[index] = 0;
+        display_values(varnum, *values);
+        *values[index] = 1;
+        display_values(varnum, *values);
+        return;
+    }
+    else {
+        *values[index] = 0;
+        //display_values(varnum, *values);
+        recur(index + 1, varnum, values);
+        *values[index] = 1;
+        //display_values(varnum, *values);
+        recur(index + 1, varnum, values);
+    }
+}
 
 
 
