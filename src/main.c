@@ -43,12 +43,14 @@ void inc(unsigned int* val) {
 void recur(int index, int varnum, int resnum, unsigned int* values) {
     if (index == varnum - 1) {
         values[index] = 0;
-        boolean_or(varnum, resnum - 1, values);
-        boolean_and(varnum, resnum, values);
+        do_boolean(varnum, resnum, values);
+        //boolean_or(varnum, resnum - 1, values);
+        //boolean_and(varnum, resnum, values);
         display_values(varnum, resnum, values);
         values[index] = 1;
-        boolean_or(varnum, resnum - 1, values);
-        boolean_and(varnum, resnum, values);
+        do_boolean(varnum, resnum, values);
+        //boolean_or(varnum, resnum - 1, values);
+        //boolean_and(varnum, resnum, values);
         display_values(varnum, resnum, values);
         return;
     }
@@ -62,3 +64,8 @@ void recur(int index, int varnum, int resnum, unsigned int* values) {
     }
 }
 
+void do_boolean(int varnum, int resnum, unsigned int* values) {
+    values[varnum + resnum - 2] = boolean_or(0, 1, values);
+    values[varnum + resnum - 1] = boolean_and(0, 1, values);
+}
+    

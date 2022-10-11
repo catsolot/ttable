@@ -1,19 +1,19 @@
-void boolean_or(int varnum, int resnum, unsigned int* values) {
-    for (int i = 0; i < varnum; i++) {
-        if (values[i] == 1) {
-            values[varnum + resnum - 1] = 1;
-            return;
-        }
-    }
-    values[varnum + resnum - 1] = 0;
+unsigned int boolean_or(int leftop, int rightop, unsigned int* values) {
+    return values[leftop] || values[rightop];
 }
 
-void boolean_and(int varnum, int resnum, unsigned int* values) {
-    for (int i = 0; i < varnum; i++) {
-        if (values[i] == 0) {
-            values[varnum + resnum - 1] = 0;
-            return;
-        }
-    }
-    values[varnum + resnum - 1] = 1;
+unsigned int boolean_and(int leftop, int rightop, unsigned int* values) {
+    return values[leftop] && values[rightop];
 }
+
+unsigned int boolean_not(int op, unsigned int* values) {
+    switch (values[leftop]) {
+        case 0:
+            return 1;
+        case 1:
+            return 0;
+    }
+}
+
+unsigned int boolean_xor(int leftop, int rightop, unsigned int* value) {
+    return boolean_and(boolean_or(leftop, rightop, values) 
