@@ -6,7 +6,10 @@
 int readvars(FILE* input_file, char** symbols, unsigned int** values);
 void display_symbols(int, char*);
 void display_values(int varnum, unsigned int* values); 
-void recur(int index, int varnum, unsigned int** values); 
+void recur(int index, int varnum, unsigned int* values); 
+
+
+void inc(unsigned int* val); 
 
 int main(int argc, char** argv) 
 { 
@@ -28,8 +31,14 @@ int main(int argc, char** argv)
     printf("%d\n", varnum);
     display_symbols(varnum, symbols);
     //display_values(varnum, values);
+    //inc(values);
+    //display_values(varnum, values);
     recur(0, varnum, &values); 
     return 0;
+}
+
+void inc(unsigned int* val) {
+    val[2] = 1;
 }
 
 int readvars(FILE* input_file, char** symbols, unsigned int** values) {
@@ -65,24 +74,23 @@ void display_values(int varnum, unsigned int* values) {
     printf("|\n");
 }
 
-void display(int varnum, char** symbols, unsigned int** values) {
+//void display(int varnum, char** symbols, unsigned int** values) {
+//
+//}
 
-}
-
-void recur(int index, int varnum, unsigned int** values) {
+void recur(int index, int varnum, unsigned int* values) {
     if (index == varnum - 1) {
-        
-        *values[index] = 0;
-        display_values(varnum, *values);
-        *values[index] = 1;
-        display_values(varnum, *values);
+        values[index] = 0;
+        display_values(varnum, values);
+        values[index] = 1;
+        display_values(varnum, values);
         return;
     }
     else {
-        *values[index] = 0;
+        values[index] = 0;
         //display_values(varnum, *values);
         recur(index + 1, varnum, values);
-        *values[index] = 1;
+        values[index] = 1;
         //display_values(varnum, *values);
         recur(index + 1, varnum, values);
     }
