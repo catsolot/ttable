@@ -33,7 +33,9 @@ int main(int argc, char** argv)
     //display_values(varnum, values);
     //inc(values);
     //display_values(varnum, values);
-    recur(0, varnum, &values); 
+    recur(0, varnum, values); 
+    free(symbols);
+    free(values);
     return 0;
 }
 
