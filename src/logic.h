@@ -1,3 +1,3 @@
-unsigned int boolean_or(int leftop, int rightop, unsigned int* values); 
-unsigned int boolean_and(int leftop, int rightop, unsigned int* values); 
-unsigned int boolean_xor(int leftop, int rightop, unsigned int* values); 
+unsigned int boolean_or(unsigned int leftop, unsigned int rightop); 
+unsigned int boolean_and(unsigned int leftop, unsigned int rightop); 
+unsigned int boolean_not(unsigned int op);
