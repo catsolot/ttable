@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -std=c11 -g
 LDFLAGS = 
 
-SOURCES = main.c
+SOURCES = main.c io.c logic.c
 OBJECTS = $(SOURCES:.c=.o)
 TARGET = ttable
 

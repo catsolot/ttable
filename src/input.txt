@@ -1,3 +1,2 @@
-10
-a a a a a b c x y z
-x OR y
+2
+x y  
