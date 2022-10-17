@@ -1,4 +1,6 @@
-int readvars(FILE* input_file, char** symbols, unsigned int** values);
+#include "boolvar.h"
+
+int readvars(FILE* input_file, struct BoolVar** vars);
 void display_symbols(int, char*);
-void display_values(int varnum, int resnum, unsigned int* values); 
-int readops(FILE* input_file, char** ops);
+void display_values(int varnum, int resnum, struct BoolVar* vars); 
+int readops(FILE* input_file, struct BoolVar** vars);
